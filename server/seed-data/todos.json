@@ -1,0 +1,16 @@
+[
+  {
+    "id": "53eed916-97a2-4816-ba74-6fed3485e173",
+    "title": "First to-do",
+    "description": "Todo 1 description.",
+    "createdAt": "2020-02-27T03:02:16.900Z",
+    "done": true
+  },
+  {
+    "id": "4b4e091c-166e-4a7e-8422-82e366e0f2b4",
+    "title": "Second to-do",
+    "description": "Todo 2 description.",
+    "createdAt": "2020-02-29T03:02:16.902Z",
+    "done": false
+  }
+]
