@@ -168,6 +168,21 @@ describe("add handler", () => {
       message: "Test error"
     });
   });
+
+  it("should return 422", async () => {
+    const body = {
+      description: "Todo description"
+    };
+
+    // @ts-ignore
+    const response = await add({
+      body: JSON.stringify(body)
+    });
+    expect(response.statusCode).toBe(422);
+    expect(JSON.parse(response.body)).toEqual({
+      message: "\"title\" is required"
+    });
+  });
 });
 
 describe("update handler", () => {
@@ -236,6 +251,21 @@ describe("update handler", () => {
       message: "Test error"
     });
   });
+
+  it("should return 422", async () => {
+    const body = {
+      id: UUID
+    };
+
+    // @ts-ignore
+    const response = await update({
+      body: JSON.stringify(body)
+    });
+    expect(response.statusCode).toBe(422);
+    expect(JSON.parse(response.body)).toEqual({
+      message: "\"done\" is required"
+    });
+  });
 });
 
 describe("remove handler", () => {
@@ -285,6 +315,19 @@ describe("remove handler", () => {
     expect(response.statusCode).toBe(400);
     expect(JSON.parse(response.body)).toEqual({
       message: "Test error"
+    });
+  });
+
+  it("should return 422", async () => {
+    const body = {};
+
+    // @ts-ignore
+    const response = await remove({
+      body: JSON.stringify(body)
+    });
+    expect(response.statusCode).toBe(422);
+    expect(JSON.parse(response.body)).toEqual({
+      message: "\"id\" is required"
     });
   });
 });
