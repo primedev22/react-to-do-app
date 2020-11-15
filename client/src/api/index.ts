@@ -36,6 +36,10 @@ export const updateTodo = async ({
     },
     body: JSON.stringify({ id, done }),
   });
+  // Validation error
+  if (response.status === 422) {
+    throw await response.json();
+  }
   return await response.json();
 };
 
@@ -50,5 +54,9 @@ export const removeTodo = async (
     },
     body: JSON.stringify({ id }),
   });
+  // Validation error
+  if (response.status === 422) {
+    throw await response.json();
+  }
   return await response.json();
 };
