@@ -13,8 +13,8 @@ const TodoList = (props: any) => (
               {...todo}
               key={todo.id}
               divider={idx !== props.items.length - 1}
-              onButtonClick={() => {}}
-              onCheckBoxToggle={() => {}}
+              onButtonClick={props.onItemRemove}
+              onCheckBoxToggle={props.onItemUpdate}
             />
           ))}
         </List>

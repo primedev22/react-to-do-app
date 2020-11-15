@@ -9,7 +9,7 @@ import AddTodo from "./components/AddTodo";
 import TodoList from "./components/TodoList";
 
 const App = () => {
-  const { todos, addTodo, updateTodo, removeTodo } = useTodos();
+  const { todos, addTodo, updateTodo, removeTodo } = useTodos([]);
 
   return (
     <Layout>

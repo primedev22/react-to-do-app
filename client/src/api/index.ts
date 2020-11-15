@@ -4,23 +4,46 @@ export const getTodos = async (): Promise<Todo[]> => {
   return await (await fetch("http://localhost:4000/todos")).json();
 };
 
-export const addTodo = async (
-  todo: Todo
-): Promise<{ success: boolean; item: Todo }> => {
+export const addTodo = async ({
+  title,
+  description,
+}: Todo): Promise<{ success: boolean; item: Todo }> => {
   // @ts-ignore
-  return;
+  const response = await fetch("http://localhost:4000/todos", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ title, description }),
+  });
+  return await response.json();
 };
 
-export const updateTodo = async (
-  todo: Todo
-): Promise<{ success: boolean; item: Todo }> => {
+export const updateTodo = async ({
+  id,
+  done,
+}: Todo): Promise<{ success: boolean; item: Todo }> => {
   // @ts-ignore
-  return;
+  const response = await fetch("http://localhost:4000/todos", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id, done }),
+  });
+  return await response.json();
 };
 
 export const removeTodo = async (
   id: string
 ): Promise<{ success: boolean; id: string }> => {
   // @ts-ignore
-  return;
+  const response = await fetch("http://localhost:4000/todos", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id }),
+  });
+  return await response.json();
 };

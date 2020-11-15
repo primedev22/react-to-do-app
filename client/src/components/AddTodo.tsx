@@ -4,6 +4,16 @@ import { TextField, Paper, Button, Grid } from "@material-ui/core";
 
 const AddTodo = (props: any) => {
   const title = useInputValue();
+  const description = useInputValue();
+
+  const onAdd = () => {
+    props.onSubmit({
+      title: title.inputValue,
+      description: description.inputValue,
+    });
+    title.clearInput();
+    description.clearInput();
+  };
 
   return (
     <Paper style={{ margin: 16, padding: 16 }}>
@@ -11,7 +21,7 @@ const AddTodo = (props: any) => {
         <Grid xs={10} md={11} item style={{ paddingRight: 16 }}>
           <TextField
             inputProps={{
-              "data-testid": "title"
+              "data-testid": "title",
             }}
             placeholder="Add Todo here"
             value={title.inputValue}
@@ -19,17 +29,26 @@ const AddTodo = (props: any) => {
             fullWidth
           />
         </Grid>
-        <Grid xs={2} md={1} item>
+        <Grid xs={10} md={11} item style={{ paddingRight: 16 }}>
+          <TextField
+            inputProps={{
+              "data-testid": "description",
+            }}
+            multiline
+            rows={5}
+            placeholder="Description here"
+            value={description.inputValue}
+            onChange={description.changeInput}
+            fullWidth
+          />
+        </Grid>
+        <Grid xs={2} md={1} item container alignItems="flex-end">
           <Button
             data-testid="button"
             fullWidth
             color="secondary"
             variant="outlined"
-            onClick={() => {
-              props.onSubmit({
-                title: title.inputValue
-              });
-            }}
+            onClick={onAdd}
           >
             Add
           </Button>

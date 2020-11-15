@@ -13,7 +13,9 @@ const TodoListItem = (props: any) => (
   <ListItem divider={props.divider}>
     <Checkbox
       data-testid="update"
-      onClick={props.onCheckBoxToggle}
+      onClick={() =>
+        props.onCheckBoxToggle({ id: props.id, done: !props.done })
+      }
       checked={props.done}
       disableRipple
     />
@@ -22,7 +24,7 @@ const TodoListItem = (props: any) => (
       <IconButton
         data-testid="remove"
         aria-label="Delete Todo"
-        onClick={props.onButtonClick}
+        onClick={() => props.onButtonClick({ id: props.id })}
       >
         <DeleteOutlined />
       </IconButton>
