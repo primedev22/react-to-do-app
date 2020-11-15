@@ -2,15 +2,17 @@ import { useState, useEffect } from "react";
 import { getTodos, addTodo, updateTodo, removeTodo } from "../api";
 import { Todo } from "../types";
 
-const useTodos = (initialValue: Todo[]) => {
+const useTodos = (initialValue: Todo[], setMessage: Function) => {
   const [todos, setTodos] = useState<Todo[]>(initialValue);
 
   useEffect(() => {
     getTodos()
-      .then(data => {
+      .then((data) => {
         setTodos(data);
       })
-      .catch(console.error);
+      .catch((error) => {
+        setMessage(error.message || "Server error");
+      });
   }, []);
 
   return {
@@ -18,28 +20,37 @@ const useTodos = (initialValue: Todo[]) => {
     addTodo: (todo: Todo) => {
       addTodo(todo)
         .then((data) => {
-          todos.push(data.item);
-          setTodos([...todos]);
+          const result = [...todos];
+          result.push(data.item);
+          setTodos(result);
         })
-        .catch(console.error);
+        .catch((error) => {
+          setMessage(error.message || "Server error");
+        });
     },
     updateTodo: (todo: Todo) => {
       updateTodo(todo)
         .then((data) => {
+          const result = [...todos];
           const index = todos.findIndex((item) => item.id === data.item.id);
-          todos[index] = data.item;
-          setTodos([...todos]);
+          result[index] = data.item;
+          setTodos(result);
         })
-        .catch(console.error);
+        .catch((error) => {
+          setMessage(error.message || "Server error");
+        });
     },
     removeTodo: ({ id }: Todo) => {
       removeTodo(id)
         .then((data) => {
+          const result = [...todos];
           const index = todos.findIndex((item) => item.id === data.id);
-          todos.splice(index, 1);
-          setTodos([...todos]);
+          result.splice(index, 1);
+          setTodos(result);
         })
-        .catch(console.error);
+        .catch((error) => {
+          setMessage(error.message || "Server error");
+        });
     },
   };
 };

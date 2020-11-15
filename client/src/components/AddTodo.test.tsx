@@ -20,4 +20,24 @@ describe("AddTodo", () => {
       description: "Todo description"
     });
   });
+
+  it("should validate correctly", async () => {
+    const onSubmit = jest.fn();
+    const showErrorMessage = jest.fn();
+    const { findByTestId } = render(
+      <AddTodo onSubmit={onSubmit} showErrorMessage={showErrorMessage} />
+    );
+
+    const title = await findByTestId("title");
+    const description = await findByTestId("description");
+    const button = await findByTestId("button");
+
+    fireEvent.change(title, { target: { value: "" } });
+    fireEvent.change(description, { target: { value: "Todo description" } });
+    fireEvent.click(button);
+
+    expect(showErrorMessage).toHaveBeenCalledWith(
+      "The title or description must be non-empty."
+    );
+  });
 });

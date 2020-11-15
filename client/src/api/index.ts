@@ -16,6 +16,11 @@ export const addTodo = async ({
     },
     body: JSON.stringify({ title, description }),
   });
+
+  // Validation error
+  if (response.status === 422) {
+    throw await response.json();
+  }
   return await response.json();
 };
 

@@ -7,6 +7,12 @@ const AddTodo = (props: any) => {
   const description = useInputValue();
 
   const onAdd = () => {
+    // Validation check
+    if (title.inputValue.length === 0 || description.inputValue.length === 0) {
+      props.showErrorMessage("The title or description must be non-empty.");
+      return false;
+    }
+
     props.onSubmit({
       title: title.inputValue,
       description: description.inputValue,
@@ -23,7 +29,7 @@ const AddTodo = (props: any) => {
             inputProps={{
               "data-testid": "title",
             }}
-            placeholder="Add Todo here"
+            placeholder="Title here"
             value={title.inputValue}
             onChange={title.changeInput}
             fullWidth
